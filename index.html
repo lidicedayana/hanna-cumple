@@ -142,7 +142,7 @@
   }
   .countdown-eyebrow {
     font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 5px;
-    color: rgba(201,168,76,0.6); text-transform: uppercase; margin-bottom: 24px;
+    color: var(--gold-light); text-transform: uppercase; margin-bottom: 24px;
     display: flex; align-items: center; justify-content: center; gap: 12px;
   }
   .countdown-eyebrow::before,.countdown-eyebrow::after { content:''; width:40px; height:1px; background:rgba(201,168,76,0.3); }
@@ -165,12 +165,12 @@
   }
   .countdown-label {
     font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 3px;
-    color: rgba(201,168,76,0.5); text-transform: uppercase; margin-top: 4px; display: block;
+    color: rgba(232,201,106,0.85); text-transform: uppercase; margin-top: 4px; display: block;
   }
 
   .countdown-date {
     font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic;
-    color: rgba(250,243,220,0.7); margin-top: 24px; letter-spacing: 1px;
+    color: rgba(253,243,220,0.92); margin-top: 24px; letter-spacing: 1px;
   }
 
   /* ============ SECTIONS GENERALES ============ */
@@ -185,6 +185,7 @@
     display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
   }
   .section-eyebrow::before,.section-eyebrow::after { content:''; flex:1; height:1px; background:rgba(201,168,76,0.3); }
+  .footer .section-eyebrow { color: var(--gold-light); }
 
   .section-title-script {
     font-family: 'Great Vibes', cursive; font-size: 48px;
@@ -298,7 +299,7 @@
   }
   .footer-cross { font-size:20px; display:block; margin-bottom:10px; opacity:0.6; }
   .footer-name { font-family:'Great Vibes',cursive; font-size:36px; color:var(--gold-light); margin-bottom:8px; }
-  .footer-date { font-family:'Cinzel',serif; font-size:9px; letter-spacing:4px; color:rgba(201,168,76,0.5); text-transform:uppercase; }
+  .footer-date { font-family:'Cinzel',serif; font-size:9px; letter-spacing:4px; color:rgba(232,201,106,0.85); text-transform:uppercase; }
 
   /* ============ MAX WIDTH ============ */
   .inner { max-width: 520px; margin: 0 auto; }
@@ -338,7 +339,7 @@
   }
   .calendar-month {
     font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 5px;
-    color: rgba(201,168,76,0.6); text-transform: uppercase;
+    color: var(--gold-light); text-transform: uppercase;
     padding: 16px 0 12px; display: block;
   }
   .calendar-days-header {
@@ -347,7 +348,7 @@
   }
   .calendar-days-header span {
     font-family: 'Cinzel', serif; font-size: 8px; letter-spacing: 1px;
-    color: rgba(201,168,76,0.4); text-transform: uppercase; text-align: center;
+    color: rgba(232,201,106,0.8); text-transform: uppercase; text-align: center;
     padding: 4px 0;
   }
   .calendar-body {
@@ -355,7 +356,7 @@
   }
   .cal-day {
     font-family: 'Cormorant Garamond', serif; font-size: 14px;
-    color: rgba(250,243,220,0.4); text-align: center;
+    color: rgba(253,243,220,0.85); text-align: center;
     padding: 6px 2px; line-height: 1;
   }
   .cal-day.empty { }
@@ -372,7 +373,7 @@
     0%,100%{ box-shadow: 0 0 16px rgba(212,132,154,0.4); }
     50%{ box-shadow: 0 0 28px rgba(212,132,154,0.8); }
   }
-  .cal-day.other { color: rgba(250,243,220,0.2); }
+  .cal-day.other { color: rgba(250,243,220,0.35); }
 
   @media (max-width: 640px) {
     .hero { height: 55vh; min-height: 320px; }
