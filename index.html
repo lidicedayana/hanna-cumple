@@ -454,12 +454,40 @@
       opacity: var(--f-opacity, 0.7);
     }
   }
+
+  /* ============ MÚSICA ============ */
+  .music-toggle-wrap {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  .music-toggle {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-dark));
+    color: var(--cream);
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s;
+  }
+  .music-toggle:hover { transform: scale(1.08); }
+  .music-toggle:active { transform: scale(0.96); }
 </style>
 </head>
 <body>
 
 <!-- ===== PLUMAS CAYENDO ===== -->
 <div class="feathers" id="feathers" aria-hidden="true"></div>
+
+<!-- ===== MÚSICA ===== -->
+<div class="music-toggle-wrap" id="music">
+  <audio src="Music/lullaby.wav" loop preload="auto"></audio>
+  <button class="music-toggle" type="button" aria-label="Reproducir música">♪</button>
+</div>
 
 <!-- ===== HERO ===== -->
 <div class="hero">
@@ -858,6 +886,71 @@ renderGuestFields();
     el.style.animationDelay = -(Math.random() * 22).toFixed(1) + 's';
     layer.appendChild(el);
   }
+})();
+
+// === MÚSICA ===
+(function () {
+  var container = document.getElementById('music');
+  if (!container) return;
+
+  var audio = container.querySelector('audio');
+  var button = container.querySelector('.music-toggle');
+  if (!audio || !button) return;
+
+  audio.addEventListener('play', function () {
+    button.textContent = '❚❚';
+    button.setAttribute('aria-label', 'Silenciar música');
+  });
+  audio.addEventListener('pause', function () {
+    button.textContent = '♪';
+    button.setAttribute('aria-label', 'Reproducir música');
+  });
+
+  // Lo que el visitante realmente quiere, aparte del estado momentáneo del audio — así un
+  // ciclo de ocultar/mostrar pestaña (ver visibilitychange abajo) distingue "lo pausé yo" de
+  // "el navegador lo pausó por mí", y solo reanuda automáticamente en el segundo caso.
+  var userMuted = false;
+
+  button.addEventListener('click', function () {
+    if (audio.paused) {
+      userMuted = false;
+      audio.play().catch(function () {});
+    } else {
+      userMuted = true;
+      audio.pause();
+    }
+  });
+
+  // Los navegadores bloquean el audio con sonido hasta que el visitante interactúa al menos una
+  // vez (más estricto en iPhone). Probamos de una vez por si acaso, y si no, arranca con el
+  // primer toque/clic/tecla en cualquier parte de la página — se siente automático.
+  audio.play().catch(function () {});
+
+  var startedOnInteraction = false;
+  function startOnFirstInteraction() {
+    if (startedOnInteraction || !audio.paused) return;
+    startedOnInteraction = true;
+    audio.play().catch(function () {});
+  }
+  ['pointerdown', 'touchstart', 'keydown'].forEach(function (evt) {
+    document.addEventListener(evt, startOnFirstInteraction, { once: true, passive: true });
+  });
+
+  // Minimizar la app, bloquear pantalla o cambiar de pestaña pausa la música en vez de dejarla
+  // sonando invisible — al volver, se reanuda sola, salvo que el visitante la haya silenciado a
+  // propósito antes (esa decisión siempre gana).
+  var pausedByVisibility = false;
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      if (!audio.paused) {
+        pausedByVisibility = true;
+        audio.pause();
+      }
+    } else if (pausedByVisibility && !userMuted) {
+      pausedByVisibility = false;
+      audio.play().catch(function () {});
+    }
+  });
 })();
 </script>
 </body>
