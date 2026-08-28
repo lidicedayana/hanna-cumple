@@ -390,9 +390,76 @@
   @media (max-width: 640px) {
     .hero { height: 55vh; min-height: 320px; }
   }
+
+  /* ============ PLUMAS CAYENDO ============ */
+  .feathers {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 999;
+  }
+  .feathers__particle {
+    position: absolute;
+    top: -15%;
+    opacity: 0;
+    /* El punto de giro está cerca del borde superior, no en el centro: así se mece como si
+       colgara de ahí (una hamaca) en vez de girar como una moneda. */
+    transform-origin: 50% 10%;
+    will-change: transform, opacity;
+    animation-name: feather-fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  /* Trayectoria sinusoidal real: el desplazamiento lateral (sin) y una pequeña "subida" local
+     (sin²) comparten la misma fase, así la pluma dibuja arcos ∪/∩ conectados mientras desciende,
+     en vez de rebotar en zigzag. La rotación es -sin(θ), signo opuesto al del vaivén, para que se
+     incline hacia el lado contrario al que se mueve (como una hamaca real). */
+  @keyframes feather-fall {
+    0%      { transform: translate(0px, -15vh) rotate(0deg); opacity: 0; }
+    3%      { opacity: var(--f-opacity, 0.85); }
+    4.167%  { transform: translate(calc(var(--f-sway, 70px) * 0.7071), calc(-9.71vh + var(--f-bump, 34px) * -0.5)) rotate(calc(var(--f-rotate, 25deg) * -0.7071)); }
+    8.333%  { transform: translate(calc(var(--f-sway, 70px) * 1), calc(-4.42vh + var(--f-bump, 34px) * -1)) rotate(calc(var(--f-rotate, 25deg) * -1)); }
+    12.5%   { transform: translate(calc(var(--f-sway, 70px) * 0.7071), calc(0.88vh + var(--f-bump, 34px) * -0.5)) rotate(calc(var(--f-rotate, 25deg) * -0.7071)); }
+    16.667% { transform: translate(0px, 6.17vh) rotate(0deg); }
+    20.833% { transform: translate(calc(var(--f-sway, 70px) * -0.7071), calc(11.46vh + var(--f-bump, 34px) * -0.5)) rotate(calc(var(--f-rotate, 25deg) * 0.7071)); }
+    25%     { transform: translate(calc(var(--f-sway, 70px) * -1), calc(16.75vh + var(--f-bump, 34px) * -1)) rotate(calc(var(--f-rotate, 25deg) * 1)); }
+    29.167% { transform: translate(calc(var(--f-sway, 70px) * -0.7071), calc(22.04vh + var(--f-bump, 34px) * -0.5)) rotate(calc(var(--f-rotate, 25deg) * 0.7071)); }
+    33.333% { transform: translate(0px, 27.33vh) rotate(0deg); }
+    37.5%   { transform: translate(calc(var(--f-sway, 70px) * 0.7071), calc(32.63vh + var(--f-bump, 34px) * -0.5)) rotate(calc(var(--f-rotate, 25deg) * -0.7071)); }
+    41.667% { transform: translate(calc(var(--f-sway, 70px) * 1), calc(37.92vh + var(--f-bump, 34px) * -1)) rotate(calc(var(--f-rotate, 25deg) * -1)); }
+    45.833% { transform: translate(calc(var(--f-sway, 70px) * 0.7071), calc(43.21vh + var(--f-bump, 34px) * -0.5)) rotate(calc(var(--f-rotate, 25deg) * -0.7071)); }
+    50%     { transform: translate(0px, 48.5vh) rotate(0deg); }
+    54.167% { transform: translate(calc(var(--f-sway, 70px) * -0.7071), calc(53.79vh + var(--f-bump, 34px) * -0.5)) rotate(calc(var(--f-rotate, 25deg) * 0.7071)); }
+    58.333% { transform: translate(calc(var(--f-sway, 70px) * -1), calc(59.08vh + var(--f-bump, 34px) * -1)) rotate(calc(var(--f-rotate, 25deg) * 1)); }
+    62.5%   { transform: translate(calc(var(--f-sway, 70px) * -0.7071), calc(64.38vh + var(--f-bump, 34px) * -0.5)) rotate(calc(var(--f-rotate, 25deg) * 0.7071)); }
+    66.667% { transform: translate(0px, 69.67vh) rotate(0deg); }
+    70.833% { transform: translate(calc(var(--f-sway, 70px) * 0.7071), calc(74.96vh + var(--f-bump, 34px) * -0.5)) rotate(calc(var(--f-rotate, 25deg) * -0.7071)); }
+    75%     { transform: translate(calc(var(--f-sway, 70px) * 1), calc(80.25vh + var(--f-bump, 34px) * -1)) rotate(calc(var(--f-rotate, 25deg) * -1)); }
+    79.167% { transform: translate(calc(var(--f-sway, 70px) * 0.7071), calc(85.54vh + var(--f-bump, 34px) * -0.5)) rotate(calc(var(--f-rotate, 25deg) * -0.7071)); }
+    83.333% { transform: translate(0px, 90.83vh) rotate(0deg); }
+    87.5%   { transform: translate(calc(var(--f-sway, 70px) * -0.7071), calc(96.13vh + var(--f-bump, 34px) * -0.5)) rotate(calc(var(--f-rotate, 25deg) * 0.7071)); }
+    91.667% { transform: translate(calc(var(--f-sway, 70px) * -1), calc(101.42vh + var(--f-bump, 34px) * -1)) rotate(calc(var(--f-rotate, 25deg) * 1)); }
+    95.833% { transform: translate(calc(var(--f-sway, 70px) * -0.7071), calc(106.71vh + var(--f-bump, 34px) * -0.5)) rotate(calc(var(--f-rotate, 25deg) * 0.7071)); }
+    97%     { opacity: var(--f-opacity, 0.85); }
+    100%    { transform: translate(0px, 112vh) rotate(0deg); opacity: 0; }
+  }
+  /* Si el visitante pidió menos animación en su sistema, las plumas se quedan quietas
+     repartidas por la pantalla en vez de moverse (pero siguen visibles). */
+  @media (prefers-reduced-motion: reduce) {
+    .feathers__particle {
+      animation: none;
+      transform: none;
+      top: var(--f-top, 20%);
+      opacity: var(--f-opacity, 0.7);
+    }
+  }
 </style>
 </head>
 <body>
+
+<!-- ===== PLUMAS CAYENDO ===== -->
+<div class="feathers" id="feathers" aria-hidden="true"></div>
 
 <!-- ===== HERO ===== -->
 <div class="hero">
@@ -750,6 +817,48 @@ async function submitRSVP() {
 
 initGuestName();
 renderGuestFields();
+
+// === PLUMAS CAYENDO ===
+(function () {
+  var layer = document.getElementById('feathers');
+  if (!layer) return;
+
+  var COLOR = '#D4849A'; // rosa palo
+  var COUNT = 16;
+  // Pluma dibujada acostada (el asta corre de lado a lado).
+  var FEATHER_SVG =
+    '<path fill="currentColor" d="M12 1c-1.2 4-1.4 8 0 12.5S13.4 21 12 23c-2.2-1-4.2-3.2-5.2-6.3C5.6 12.8 6.6 6.8 12 1z"/>' +
+    '<path fill="none" stroke="rgba(0,0,0,0.25)" stroke-width="0.8" d="M12 1v22"/>' +
+    '<path fill="none" stroke="rgba(0,0,0,0.18)" stroke-width="0.6" d="M12 6 8 8.5M12 10l-3.3 2M12 14l-3 2.2M12 18l-2.2 2"/>';
+
+  for (var i = 0; i < COUNT; i++) {
+    var el = document.createElement('div');
+    el.className = 'feathers__particle';
+
+    var jitter = 0.85 + Math.random() * 0.4;
+    var w = Math.round(22 * jitter);
+    var h = Math.round(18 * jitter);
+    el.innerHTML =
+      '<svg viewBox="0 0 24 24" width="' + w + '" height="' + h + '" style="transform:rotate(270deg)">' +
+      FEATHER_SVG +
+      '</svg>';
+
+    el.style.left = Math.random() * 100 + '%';
+    el.style.color = COLOR;
+    el.style.setProperty('--f-top', Math.round(Math.random() * 80) + '%');
+    // Cuánto se desvía cada pluma hacia los lados — algunas más que otras.
+    el.style.setProperty('--f-sway', Math.round(45 + Math.random() * 110) + 'px');
+    // Qué tan alto sube cada arco durante el vaivén.
+    el.style.setProperty('--f-bump', Math.round(18 + Math.random() * 34) + 'px');
+    // Cuánto se inclina al mecerse (hamaca), no un giro completo.
+    el.style.setProperty('--f-rotate', Math.round(8 + Math.random() * 16) + 'deg');
+    el.style.setProperty('--f-opacity', (0.55 + Math.random() * 0.35).toFixed(2));
+    // La velocidad de caída varía por pluma para que no se vean sincronizadas.
+    el.style.animationDuration = (10 + Math.random() * 12).toFixed(1) + 's';
+    el.style.animationDelay = -(Math.random() * 22).toFixed(1) + 's';
+    layer.appendChild(el);
+  }
+})();
 </script>
 </body>
 </html>
