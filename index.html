@@ -3,7 +3,7 @@
 <head>
 <meta property="og:title" content="Bautizo & 1er Año — Hanna Katerina 🎀"/>
 <meta property="og:description" content="Te invitamos a celebrar el bautizo y el festejo del primer año de nuestra pequeña"/>
-<meta property="og:image" content="https://lidicedayana.github.io/hanna-cumple/Photos/familia.png"/>
+<meta property="og:image" content="https://lidicedayana.github.io/hanna-cumple/Photos/og-cover.jpg"/>
 <meta property="og:url" content="https://lidicedayana.github.io/hanna-cumple"/>
 <meta property="og:type" content="website"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -444,16 +444,8 @@
     97%     { opacity: var(--f-opacity, 0.85); }
     100%    { transform: translate(0px, 112vh) rotate(0deg); opacity: 0; }
   }
-  /* Si el visitante pidió menos animación en su sistema, las plumas se quedan quietas
-     repartidas por la pantalla en vez de moverse (pero siguen visibles). */
-  @media (prefers-reduced-motion: reduce) {
-    .feathers__particle {
-      animation: none;
-      transform: none;
-      top: var(--f-top, 20%);
-      opacity: var(--f-opacity, 0.7);
-    }
-  }
+  /* La animación se fuerza siempre, aunque el dispositivo tenga "movimiento reducido"
+     activado a nivel de sistema (por eso en algunos celulares/laptops no se veían caer). */
 
   /* ============ MÚSICA ============ */
   .music-toggle-wrap {
